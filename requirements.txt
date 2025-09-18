@@ -1,6 +1,22 @@
+# Core Django
 Django>=4.2,<5.0
+
+# WSGI server for production
 gunicorn
+
+# Static files handling on Render
+whitenoise
+
+# Database URL parser for Render Postgres
+dj-database-url
+
+# PostgreSQL adapter (use psycopg2-binary for easier install)
+psycopg2-binary
+
+# Forms and UI helpers
 django-crispy-forms
 crispy-bootstrap4
 django-widget-tweaks
+
+# Dev utilities
 django-extensions
