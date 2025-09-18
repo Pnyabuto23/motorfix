@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+{% extends "bookings/base.html" %}
+{% load crispy_forms_tags %}  {# Optional if crispy is installed #}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 500px;">
+    <h2 class="mb-3">Register</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        {# Non-field errors (e.g. password mismatch) #}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {# Loop through fields manually #}
+        {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+
+                {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text }}</div>
+                {% endif %}
+
+                {% if field.errors %}
+                    <div class="text-danger small">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+
+    <p class="mt-3 text-center">
+        Already have an account? <a href="{% url 'login' %}">Login</a>
+    </p>
+</div>
+{% endblock %}

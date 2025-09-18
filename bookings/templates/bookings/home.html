@@ -1,0 +1,35 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-text">
+        <h2>Welcome to <span class="highlight">MotorFix</span></h2>
+        <p>Book your car service easily and conveniently</p>
+        <a href="{% url 'booking_form' %}" class="btn-primary">Book a Service</a>
+    </div>
+</section>
+
+<!-- Featured Services -->
+<h2 class="section-title">Featured Services</h2>
+<div class="card-grid">
+    {% for service in services %}
+        <div class="card">
+            {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}">
+            {% else %}
+                <img src="{% static 'default_service.jpg' %}" alt="Service">
+            {% endif %}
+            <div class="card-body">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description|truncatewords:20 }}</p>
+                <p class="price">KSh {{ service.price }}</p>
+                <a href="{% url 'booking_with_service' service.id %}" class="btn-secondary">Book Now</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No services available at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

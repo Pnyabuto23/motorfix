@@ -1,0 +1,23 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Our Services</h2>
+<div class="card-grid">
+    {% for service in services %}
+        <div class="card">
+            {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}">
+            {% else %}
+                <img src="{% static 'default_service.jpg' %}" alt="Service">
+            {% endif %}
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            <p class="price">KSh {{ service.price }}</p>
+            <a href="{% url 'booking_with_service' service.id %}" class="btn-secondary">Book Now</a>
+        </div>
+    {% empty %}
+        <p>No services available right now.</p>
+    {% endfor %}
+</div>
+{% endblock %}
